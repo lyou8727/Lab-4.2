@@ -1,7 +1,5 @@
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.IOException;
-import java.net.URI;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -27,12 +25,6 @@ public class CSVUtilities {
 
             // loop until all lines are read
             while (line != null) {
-
-                // use string.split to load a string array with the values from
-                // each line of
-                // the file, using a comma as the delimiter
-                String[] attributes = line.split(",");
-
                 // adding book into ArrayList
                 CSVData.add(line);
 
