@@ -1,5 +1,11 @@
+package lab4_2;
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
+import java.io.Reader;
+import java.net.URI;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -9,27 +15,18 @@ import java.util.Arrays;
 import java.util.List;
 
 public class CSVUtilities {
-	ArrayList<String> CSVData;
+	private static ArrayList<String> CSVData = new ArrayList<String>();
 	int numColumns;
 	
-	public CSVUtilities(String csv) {
-        Path pathToFile = Paths.get(csv);
+	public CSVUtilities(File sat) throws IOException {
+		FileReader pathToFile = new FileReader(sat);
 
         // create an instance of BufferedReader
         // using try with resource, Java 7 feature to close resources
-        try (BufferedReader br = Files.newBufferedReader(pathToFile,
-                StandardCharsets.US_ASCII)) {
-
-            // read the first line from the text file
+        try (BufferedReader br = new BufferedReader(pathToFile)) {
             String line = br.readLine();
-
-            // loop until all lines are read
             while (line != null) {
-                // adding book into ArrayList
                 CSVData.add(line);
-
-                // read next line before looping
-                // if end of file reached, line would be null
                 line = br.readLine();
             }
 
@@ -37,10 +34,12 @@ public class CSVUtilities {
             ioe.printStackTrace();
         }
 	}
+	
 	public List<String> getColumnHeaders(){
 		return Arrays.asList(CSVData.get(0).split(","));
 	}
-	public List<String> getDataString(int column){
+	
+	public static List<String> getDataString(int column){
 		ArrayList<String> data = new ArrayList<String>();
 		for (int x = 1; x < CSVData.size(); x++) 
 		{
@@ -49,10 +48,10 @@ public class CSVUtilities {
 		}
 		return data;
 	}
-	public List<Integer> getDataInt(int column){
+	public static List<Integer> getDataInt(int column){
 		ArrayList<Integer> data = new ArrayList<Integer>();
 		for (int x = 1; x < CSVData.size(); x++)
-		{
+		{;
 			String[] temp = CSVData.get(x).split(",");
 			data.add(Integer.parseInt(temp[column]));
 		}
